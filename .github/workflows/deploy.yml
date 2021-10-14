@@ -28,6 +28,7 @@ jobs:
           subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: ${{ env.AZURE_RESOURCE_GROUP }}
           template: ./azuredeploy.json
+          parameters: appName=${{ env.AZURE_FUNCTIONAPP_NAME }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
