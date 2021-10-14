@@ -33,4 +33,4 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: './AzureChallengeGithubActions/GitHubActionsChallengeFunctionApp/GitHubActionsChallengeFunctionApp/Function1.cs'
+          package: 'GitHubActionsChallengeFunctionApp'
