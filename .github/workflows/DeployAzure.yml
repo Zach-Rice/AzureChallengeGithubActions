@@ -1,0 +1,37 @@
+name: Deploy ARM Template
+
+on:
+  push:
+    branches:
+      - master
+env:
+  AZURE_SUBSCRIPTION_ID: c6832d86-815e-44ca-9bca-debe61931073   # set this to your Azure Subscription Id
+  AZURE_RESOURCE_GROUP: GithubActionsLab  # set this to your target resource group
+  AZURE_FUNCTIONAPP_NAME: AzureFunction 
+
+jobs:
+  deploy-virtual-network-template:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@master
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy ARM Template
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ env.AZURE_RESOURCE_GROUP }}
+          template: ./azuredeploy.json
+          parameters: appName="${{ env.AZURE_FUNCTIONAPP_NAME }}"
+
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: './AzureChallengeGithubActions/GitHubActionsChallengeFunctionApp/GitHubActionsChallengeFunctionApp/Function1.cs'
