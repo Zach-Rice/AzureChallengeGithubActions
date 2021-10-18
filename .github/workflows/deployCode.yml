@@ -12,7 +12,7 @@ env:
   DOTNET_VERSION: 3.1
 
 jobs:
-  deploy-virtual-network-template:
+  deployFunction:
     runs-on: windows-latest
     steps:
       - name: Checkout source code
