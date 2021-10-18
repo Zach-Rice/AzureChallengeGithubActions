@@ -2,8 +2,9 @@ name: Deploy Code
 
 on:
   push:
-    branches:
-      - main
+    branches: [main1]
+  workflow_dispatch:
+  
 env:
   AZURE_RESOURCE_GROUP: 'AzureChallengeGithub'  # set this to your target resource group
   AZURE_FUNCTIONAPP_NAME: 'GithubActionsasdf'
